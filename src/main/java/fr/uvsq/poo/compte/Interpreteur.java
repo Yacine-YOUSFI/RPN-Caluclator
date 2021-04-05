@@ -7,6 +7,7 @@ public class Interpreteur {
     private Joystick interp;
 
     public Interpreteur() {
+        
         this.historique = new Stack<Undo>();
         this.interp= new Joystick();
     }
