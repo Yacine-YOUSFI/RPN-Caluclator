@@ -1,7 +1,9 @@
 package fr.uvsq.poo.compte;
 
 import java.util.Stack;
-
+/**
+ * @author yacine
+ */
 public class OperationsCommand extends Undo{
     private Integer sommet;
     private Integer avantSommet;
