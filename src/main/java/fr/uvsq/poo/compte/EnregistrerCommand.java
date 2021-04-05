@@ -6,7 +6,7 @@ import java.util.Stack;
  * @author yacine
  */
 
-public class EnregistrerCommand {
+public class EnregistrerCommand extends Undo{
     private Integer nb;
     private Stack<Integer> pile;
 // Cette classe permet de stocker les opérandes dans la pile
