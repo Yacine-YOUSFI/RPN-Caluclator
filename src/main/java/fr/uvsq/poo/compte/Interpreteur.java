@@ -3,25 +3,28 @@ package fr.uvsq.poo.compte;
 import java.util.Stack;
 
 public class Interpreteur {
-    private Stack<Undo> historique;
+    private Stack<Command> historique;
     private Joystick interp;
 
     public Interpreteur() {
         
-        this.historique = new Stack<Undo>();
+        this.historique = new Stack<Command>();
         this.interp= new Joystick();
     }
 
     private void executeCommand(Command command) {
         command.excuter();
     }
-    public void applyStoreCommand(Undo command) {
-            command.excuter();
-            this.historique.add(command);
+    public void applyStoreCommand(Command com) {
+            com.excuter();
+            this.historique.add(com);
     }
     public void shutdown() {
         this.executeCommand(new Quit(interp));
     }
 
 
+    public boolean isOn() {
+        return interp.isOn();
+    }
 }
