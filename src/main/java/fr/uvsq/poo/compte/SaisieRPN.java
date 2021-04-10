@@ -62,6 +62,7 @@ public class SaisieRPN {
                 moteur.shutdown();
             }
             else if (input.equals("undo")) {
+                moteur.undo();
             }
             else if (isOperation(input)) {
                 moteur.excuterOperations(renvoieOperation(input));

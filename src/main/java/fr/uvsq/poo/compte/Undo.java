@@ -4,10 +4,10 @@ import java.util.Stack;
 
 public class Undo implements Command {
 
-    private Stack<Command> derniereCommande;
+    private Stack<Integer> derniereCommande;
 
-    public  Undo (){
-        excuter();
+    public  Undo (Stack<Integer> derniereCommande){
+        this.derniereCommande=derniereCommande;
     }
 
     @Override
