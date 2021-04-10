@@ -3,20 +3,20 @@ package fr.uvsq.poo.compte;
 
 public enum Operations {
 
-    PLUS("+") {
+    PLUS('+') {
         public Integer oper (Integer x, Integer y){
             return x + y;
         }
 
     },
 
-    MOINS("-") {
+    MOINS('-') {
         public Integer oper (Integer x, Integer y){
             return x - y;
         }
 
     },
-    MULT("*"){
+    MULT('*'){
 
         public Integer oper(Integer x, Integer y) {
             return x * y;
@@ -24,7 +24,7 @@ public enum Operations {
 
     },
 
-    DIV("/"){
+    DIV('/'){
 
         public Integer oper(Integer x, Integer y) {
             if(y == 0) {
@@ -34,13 +34,13 @@ public enum Operations {
         }
 
     };
-    private String operande;
+    private char operande;
 
-    private Operations(String operande) {
+    private Operations(char operande) {
         this.operande = operande;
     }
     public abstract Integer oper(Integer x , Integer y);
-    public String getOperande() {
+    public char getOperande() {
         return operande;
     }
 
