@@ -24,5 +24,9 @@ public class MoteurRPN extends Interpreteur {
     public void excuterOperations(Operations op) {
         this.applyStoreCommand(new OperationsCommand(pile, op));
     }
+    public void undo(){
+        this.executeCommand(new Undo(pile));
+
+    }
 
 }

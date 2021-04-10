@@ -12,7 +12,7 @@ public class Interpreteur {
         this.interp= new Joystick();
     }
 
-    private void executeCommand(Command command) {
+    public void executeCommand(Command command) {
         command.excuter();
     }
     public void applyStoreCommand(Command com) {
