@@ -4,7 +4,7 @@ import java.util.Stack;
 /**
  * @author yacine
  */
-public class OperationsCommand extends Undo{
+public class OperationsCommand implements Command{
     private Integer sommet;
     private Integer avantSommet;
     private Operations operation;
