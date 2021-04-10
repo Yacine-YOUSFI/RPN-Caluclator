@@ -50,7 +50,7 @@ public class SaisieRPN {
 
     public String scanneLigne()  {
         String input;
-        if (sc.hasNextDouble()) {
+        if (sc.hasNextInt()) {
             Integer d = sc.nextInt();
             moteur.enregistrerNombreCommande(d);
             sc.nextLine();
