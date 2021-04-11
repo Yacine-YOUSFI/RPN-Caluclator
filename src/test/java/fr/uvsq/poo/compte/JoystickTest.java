@@ -15,6 +15,6 @@ public class JoystickTest {
     @Test
     public void testIsOff() {
         Joystick js = new Joystick();
-        assertEquals(true, js.turnOff());
+        assertEquals(false, js.turnOff());
     }
 }
