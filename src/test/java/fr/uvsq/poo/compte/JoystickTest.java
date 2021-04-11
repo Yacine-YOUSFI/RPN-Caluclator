@@ -9,6 +9,6 @@ public class JoystickTest {
     @Test
     public void testIsOn(){
         Joystick j= new Joystick();
-        assertEquals("<<>>", j.isOn());
+        assertEquals(true, j.isOn());
     }
 }
