@@ -49,4 +49,20 @@ public class MainTest {
 
     }
 
+    @Test
+    public void testExecution3(){
+        MoteurRPN r= new MoteurRPN();
+        r.enregistrerNombreCommande(5);
+        r.enregistrerNombreCommande(2);
+
+        SaisieRPN d= new SaisieRPN();
+        Operations PLUS= Operations.MULT;
+        OperationsCommand o= new OperationsCommand(r.getpile(),Operations.MULT);
+        o.excuter();
+
+
+        assertEquals("<<10>>", r.afficherPile());
+
+    }
+
 }
