@@ -12,7 +12,7 @@ public class MoteurRPNTest {
         public void testAffichePile() {
             MoteurRPN m= new MoteurRPN();
             m.afficherPile();
-            assertEquals("hi", m.afficherPile());
+            assertEquals("<<>>", m.afficherPile());
         }
     }
 
