@@ -8,6 +8,6 @@ public class InterpreteurTest {
     @Test
     public void testisOn() {
         Interpreteur i= new Interpreteur();
-        assertEquals(false, i.isOn());
+        assertEquals(true, i.isOn());
     }
 }
