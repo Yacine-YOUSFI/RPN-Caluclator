@@ -2,7 +2,7 @@ package fr.uvsq.poo.compte;
 import fr.uvsq.poo.compte.exception.*;
 /**
  * enum gérant les quatres opérations de la calculatrice +,*,-,/
- * @author melanie
+ * @author Rahmani Nadjib
  *
  */
 

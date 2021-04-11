@@ -2,10 +2,12 @@ package fr.uvsq.poo.compte;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Stack;
+
+import static org.junit.Assert.*;
+
 public class MoteurRPNTest {
 
         @Test()
@@ -14,6 +16,8 @@ public class MoteurRPNTest {
             m.afficherPile();
             assertEquals("<<>>", m.afficherPile());
         }
+
+
     }
 
 
