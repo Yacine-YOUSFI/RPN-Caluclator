@@ -45,5 +45,9 @@ public class MoteurRPN extends Interpreteur {
         this.executeCommand(new Undo(pile));
 
     }
+    public  Stack<Integer> getpile(){
+
+        return  pile;
+    }
 
 }

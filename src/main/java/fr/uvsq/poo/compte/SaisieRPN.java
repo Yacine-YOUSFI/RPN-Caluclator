@@ -1,6 +1,9 @@
 package fr.uvsq.poo.compte;
 
+import fr.uvsq.poo.compte.exception.ErreurSaisiExeption;
+
 import java.util.Scanner;
+
 /**
  * @author RAHMANI NADJIB
  * @class SaisieRPN qui prend en charge les operands , operations et commandes entré par l'user
@@ -81,6 +84,9 @@ public class SaisieRPN {
             }
             else if (isOperation(input)) {
                 moteur.excuterOperations(renvoieOperation(input));
+            }
+            else {
+                throw new ErreurSaisiExeption();
             }
 
         }
