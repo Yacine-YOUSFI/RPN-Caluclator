@@ -2,7 +2,7 @@ package fr.uvsq.poo.compte;
 
 import java.util.Stack;
 /**
- * @author yacine
+ * @author YOUSFI Yacine
  */
 public class OperationsCommand implements Command{
     private Integer sommet;
@@ -10,11 +10,19 @@ public class OperationsCommand implements Command{
     private Operations operation;
     private Stack<Integer> pile;
 
+    /**
+     * Constructeur de la classe
+     * @param pile
+     * @param operation
+     */
     public OperationsCommand(Stack<Integer> pile, Operations operation) {
         this.pile = pile;
         this.operation = operation;
     }
 
+    /**
+     * Implementation de la methode executer l'opération en dépilant deux opérandes depuis la pile
+     */
     public void excuter() {
         Integer resultat;
         this.sommet= this.pile.pop();
@@ -29,7 +37,12 @@ public class OperationsCommand implements Command{
             throw e;
         }
     }
+
+    /**
+     * La methode undo permet de dépiler un élément de la pile
+     */
     public void undo() {
+
         this.pile.pop();
     }
 }
