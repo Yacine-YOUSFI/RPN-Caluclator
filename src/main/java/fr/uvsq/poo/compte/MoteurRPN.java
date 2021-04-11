@@ -1,5 +1,7 @@
 package fr.uvsq.poo.compte;
 
+import fr.uvsq.poo.compte.exception.ArgumentPileExeption;
+
 import java.util.Stack;
 /**
  * @author RAHMANI NADJIB
@@ -36,7 +38,12 @@ public class MoteurRPN extends Interpreteur {
      * @param op
      */
     public void excuterOperations(Operations op) {
-        this.applyStoreCommand(new OperationsCommand(pile, op));
+        try {
+            this.applyStoreCommand(new OperationsCommand(pile, op));
+
+        }catch (Exception e){
+            throw new ArgumentPileExeption();
+        }
     }
     /**
      * Sup l'opérande au sommet de la pile
