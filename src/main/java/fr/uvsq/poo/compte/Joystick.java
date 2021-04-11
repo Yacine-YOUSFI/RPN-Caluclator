@@ -22,7 +22,8 @@ public class Joystick {
      * Methode pour mettre la calculatrice off
      * @return booléen
      */
-    public void turnOff() {
+    public boolean turnOff() {
         key = false;
+        return key;
     }
 }
