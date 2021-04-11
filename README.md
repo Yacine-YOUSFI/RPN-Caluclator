@@ -1,191 +1,104 @@
-# Exemple de projet Maven/Java
+# Projet RPNCalculator :
+## Introduction
+Ce projet sert à réaliser une Calculatrice en mode RPN(Reverse Polish Notation)ou notation post-fixée , qui réalise les opérations d'une calculatrice basique (/,-,+ et * ) avec 2 autre Operations : exit pour finir l'exécution et undo pour supprimer le dernier opérande.
+<br>
+   <u>**réalisé par:**</u>
+<br>    RAHMANI Nadjib
+<br>    YOUSFI Yacine
 
-## Étape 1 : initialiser le projet
-### Créer le projet à partir d'un archétype
-L'archétype `org.apache.maven.archetypes:maven-archetype-quickstart` permet de créer un squelette de projet Maven/Java.
-
-```bash
-mvn archetype:generate \
-    -DinteractiveMode=false \
-    -DarchetypeGroupId=org.apache.maven.archetypes \
-    -DarchetypeArtifactId=maven-archetype-quickstart \
-    -DarchetypeVersion=1.4 \
-    -DgroupId=fr.uvsq.poo \
-    -DartifactId=maven-exemple \
-    -Dpackage=fr.uvsq.poo.compte
-```
-
-### Initialiser le dépôt git
-```bash
-git init
-git add .
-git commit -m"Initialise le projet Maven"
-```
-Après ces commandes, le dépôt comporte un _commit_ sur la branche _master_.
-
-### Faire le lien avec le dépôt distant sur la forge (_github_, _bitbucket_, ...)
-Tout d'abord, il est nécessaire de créer le dépôt distant sur la forge.
-Ensuite, il suffit de le lier avec le dépôt local.
-
-```bash
-git remote add origin git@github.com:hal91190/maven-exemple.git
-git push -u origin master
-```
-
-### Vérifier la construction du projet avec Maven
-On génère un `jar` du projet.
-
-```bash
-mvn package
-```
-
-Cette commande crée un répertoire `target` contenant les résultats de la construction du projet.
-Ce répertoire ne doit pas être ajouté au dépôt git.
-On ajoute donc un fichier `.gitignore` à partir du modèle se trouvant sur [github](https://raw.githubusercontent.com/github/gitignore/master/Maven.gitignore).
-
-### Importer le projet dans l'IDE
-La plupart des IDEs permettent d'importer un projet Maven.
-Il est préférable de ne pas ajouter les fichiers spécifiques à l'IDE dans le dépôt git.
-On modifie donc le `.gitignore` en conséquence.
-
-## Étape 2 : configurer le projet
-### Fixer la version 11 de Java pour les sources et la cible
-Il suffit pour cela d'ajouter deux propriétés dans le `pom.xml`.
-
+## Aspects techniques et choix de conception sur le projet
+### Le pattern COMMAND
+Le pattern demandé pour la relation de ce projet est command : ce pattern encapsule la notion d'invocation. Il permet de séparer complètement le code initiateur de l'action et a notre cas l'action c'est évaluer les opérations de la calculatrice ,undo et exit et celà à partir de l'interface Command et les classes  qui l'implémentent(undo , quit )
+### Outils de travail
+#### Maven
+###### JDK 11
+Ce qu'est demandé
 ```xml
-<properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-</properties>
+            <properties>
+                <maven.compiler.source>11</maven.compiler.source>
+                <maven.compiler.target>11</maven.compiler.target>
+            </properties>
 ```
-
-### Changer la version de JUnit pour la version 4.13.1
-On modifie la dépendance dans le `pom.xml`.
-
+###### Checkstyle
 ```xml
-<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.13.1</version>
-    <scope>test</scope>
-</dependency>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <configuration>
+                        <configLocation>checkstyle.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 ```
-
-### Rendre le `jar` exécutable
-Pour cela, il indiquer à Maven d'ajouter un fichier `Manifest` dans le `jar` en précisant l'attribut `Main-class`.
-
 ```xml
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.0.2</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <mainClass>fr.uvsq.poo.compte.App</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-checkstyle-plugin</artifactId>
+                 <version>3.1.2</version>
+                 <reportSets>
+                     <reportSet>
+                         <reports>
+                             <report>checkstyle</report>
+                         </reports>
+                     </reportSet>
+                 </reportSets>
+             </plugin>
 ```
-
-À partir de là, il est possible d'exécuter l'application avec `java -jar target/maven-exemple-1.0-SNAPSHOT.jar`.
-
-## Étape 3 : améliorer le projet (optionnel)
-### Créer un `jar` intégrant les dépendances
-Le plugin [`assembly`](https://maven.apache.org/plugins/maven-assembly-plugin/) permet de générer une archive contenant l'ensemble des dépendances d'un projet.
-
+###### Javadoc
+qui gère la documentation de projet 
 ```xml
-<build>
-    <plugins>
-        <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.1.0</version>
-            <configuration>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-                <archive>
-                    <manifest>
-                        <mainClass>${main-class}</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>make-assembly</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-</build>
+             <dependency>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+             </dependency>
 ```
-
-### Créer un `jar` des sources du projet
-Le plugin [`source`](https://maven.apache.org/plugins/maven-source-plugin/) permet de générer une archive des sources du projet.
-
 ```xml
-<build>
-    <plugins>
-        <plugin>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.0.1</version>
-            <executions>
-                <execution>
-                    <id>attach-sources</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>jar-no-fork</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-</build>
+                          <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-javadoc-plugin</artifactId>
+                                <version>3.2.0</version>
+                                <configuration>
+                                    <show>private</show>
+                               </configuration>
+                          </plugin>
 ```
-
-### Créer un `jar` avec la javadoc
-Le plugin [`javadoc`](https://maven.apache.org/plugins/maven-javadoc-plugin/) permet de générer une archive de la javadoc.
-
 ```xml
-<build>
-    <plugins>
-        <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.0-M1</version>
-            <executions>
-                <execution>
-                    <id>attach-javadocs</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-</build>
+               <plugin>
+                   <groupId>org.apache.maven.plugins</groupId>
+                   <artifactId>maven-javadoc-plugin</artifactId>
+                   <version>3.2.0</version>
+                   <configuration>
+                       <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                       <show>public</show>
+                   </configuration>
+               </plugin>
 ```
-
-### Intégrer l'extension Hamcrest pour JUnit
-Cette [extension]() apporte un syntaxe plus lisible pour les tests JUnit.
-
+###### Junit4
+pour les tests 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
-<dependency>
-    <groupId>org.hamcrest</groupId>
-    <artifactId>hamcrest-all</artifactId>
-    <version>1.3</version>
-    <scope>test</scope>
-</dependency>
+                <dependency>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>4.13.1</version>
+                    <scope>test</scope>
+                </dependency>
 ```
+### Explications
+à partir de l'interface Command, on a implémenté les classes Undo,Quit et EnregistrerCommand . Et pour les opérations arithmétiques on a fait un enum pour éviter 4 classes  et une méthode abstraite oper pour évaluer le résultat ou les opérandes ce trouve dans une pile.
 
-### Étape 4 : implémenter la classe `Account` et les tests unitaires
+
+
